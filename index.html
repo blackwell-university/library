@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Digital - Blackwell Global University</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --main-blue: #071955;
+            --dark-blue: #0a2470;
+            --light-blue: #1e40af;
+            --text-secondary: #4b5563;
+            --white: #ffffff;
+            --gray-background: #f9fafb;
+            --border-color: #e5e7eb;
+            --font-serif: 'Source Serif Pro', serif;
+            --font-sans: 'Inter', sans-serif;
+            --success-light: #f0fdf4;
+            --success-dark: #166534;
+            --warning-light: #fffbeb;
+            --warning-dark: #b45309;
+            --info-light: #eff6ff;
+            --info-dark: #1e40af;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { margin: 0; font-family: var(--font-sans); background-color: var(--white); color: var(--text-secondary); }
+
+        /* --- CABECERA --- */
+        .main-header { background-color: var(--main-blue); padding: 1rem 1.5rem; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); position: sticky; top: 0; z-index: 1000; }
+        .header-container { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .header-logo { height: 40px; }
+        #language-switcher { display: flex; gap: 0.5rem; }
+        .lang-btn {
+            background: none; border: 1px solid transparent; color: rgba(255, 255, 255, 0.7);
+            padding: 0.3rem 0.6rem; border-radius: 6px; font-weight: 500; cursor: pointer; transition: all 0.3s ease;
+        }
+        .lang-btn:hover { color: var(--white); background-color: rgba(255, 255, 255, 0.1); }
+        .lang-btn.active { color: var(--white); background-color: rgba(255, 255, 255, 0.15); font-weight: 600; }
+
+        /* --- SECCIÓN HERO --- */
+        .hero-section {
+            background: linear-gradient(rgba(7, 25, 85, 0.95), rgba(10, 36, 112, 0.95)), url('https://cdn.bitrix24.es/b15495391/landing/161/161ac7a0d7dc4d123141a1a82c967cd7/bw_st2_1x.webp');
+            background-size: cover; background-position: center; padding: 5rem 1.5rem; text-align: center; color: var(--white);
+        }
+        .hero-section h1 {
+            font-family: var(--font-serif); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700;
+            margin: 0 0 0.5rem 0; text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .hero-section p { font-size: 1.15rem; max-width: 700px; margin: 0 auto; opacity: 0.9; }
+
+        /* --- SECCIÓN INTRODUCTORIA --- */
+        .intro-section { padding: 4rem 1.5rem; background-color: var(--gray-background); }
+        .intro-container { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr; align-items: center; gap: 3rem; }
+        @media (min-width: 992px) { .intro-container { grid-template-columns: 1fr 1fr; } }
+        .intro-text h2 { font-family: var(--font-serif); font-size: 2.5rem; color: var(--main-blue); margin-top: 0; }
+        .intro-text p { line-height: 1.7; }
+        .intro-vision-mission { margin-top: 2rem; }
+        .intro-vision-mission h3 { font-family: var(--font-serif); font-size: 1.5rem; color: var(--light-blue); border-left: 3px solid var(--light-blue); padding-left: 1rem; }
+        .intro-image img { width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+
+        /* --- CONTENEDOR DE PESTAÑAS --- */
+        .library-container { max-width: 1280px; margin: 0 auto; padding: 3rem 1.5rem; }
+        .tabs-container { max-width: 100%; margin: 0 auto; }
+        .tab-nav {
+            display: flex; flex-wrap: wrap; list-style: none; padding: 0;
+            margin: 0 0 2.5rem 0; border-bottom: 2px solid var(--border-color);
+        }
+        .tab-link {
+            display: flex; align-items: center; gap: 0.5rem; padding: 1rem 1.5rem; margin-bottom: -2px;
+            cursor: pointer; text-decoration: none; font-weight: 500; font-size: 1rem; color: var(--text-secondary);
+            border: 2px solid transparent; border-radius: 8px 8px 0 0; transition: all 0.3s ease;
+        }
+        .tab-link:hover { background-color: #f3f4f6; color: var(--main-blue); }
+        .tab-link.active {
+            font-weight: 600; color: var(--main-blue); border-color: var(--border-color);
+            border-bottom-color: var(--white); background-color: var(--white);
+        }
+        .tab-pane { display: none; animation: fadeIn 0.5s ease; }
+        .tab-pane.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- TARJETAS DE RECURSOS --- */
+        .resources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+        .resource-card {
+            background-color: var(--white); border: 1px solid var(--border-color); border-radius: 12px;
+            padding: 1.5rem; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; overflow: hidden;
+        }
+        .resource-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1); }
+        .access-tag {
+            position: absolute; top: 1.5rem; right: 1.5rem; padding: 4px 12px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: 600;
+        }
+        .access-tag.public { background-color: var(--success-light); color: var(--success-dark); }
+        .access-tag.private { background-color: var(--warning-light); color: var(--warning-dark); }
+        .access-tag.institutional { background-color: var(--info-light); color: var(--info-dark); }
+        .card-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; }
+        .card-icon { flex-shrink: 0; color: var(--light-blue); }
+        .card-icon svg { width: 24px; height: 24px; }
+        .card-title { font-family: var(--font-sans); font-size: 1.25rem; font-weight: 600; color: var(--main-blue); margin: 0; padding-right: 90px; }
+        .card-description { font-size: 0.95rem; line-height: 1.6; flex-grow: 1; margin-bottom: 1.5rem; }
+        .card-button {
+            display: inline-block; background-color: var(--main-blue); color: var(--white); text-decoration: none;
+            padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .card-button:hover { background-color: var(--dark-blue); transform: scale(1.03); }
+
+        /* --- FOOTER --- */
+        .main-footer { background-color: var(--main-blue); color: rgba(255, 255, 255, 0.8); padding: 2rem 1.5rem; text-align: center; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <img src="https://cdn.bitrix24.es/b15495391/landing/d83/d8337f03f6e3aaff5c6df748f7fc5593/logo_bgu_1x.png" alt="Blackwell Global University Logo" class="header-logo">
+            <div id="language-switcher">
+                <button id="lang-es" class="lang-btn active">ES</button>
+                <button id="lang-en" class="lang-btn">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <h1 data-lang-key="heroTitle">Biblioteca Digital</h1>
+        <p data-lang-key="heroSubtitle">Tu portal de acceso a los recursos académicos y bases de datos científicas más importantes del mundo.</p>
+    </section>
+
+    <section class="intro-section">
+        <div class="intro-container">
+            <div class="intro-text">
+                <h2 data-lang-key="introTitle">Conocimiento sin Fronteras</h2>
+                <p data-lang-key="introParagraph">La Biblioteca Digital de Blackwell Global University es el epicentro de la investigación y el aprendizaje para nuestra comunidad global. Diseñada para apoyar a nuestros estudiantes de Bachelor, Máster y Doctorado, esta plataforma elimina las barreras geográficas, ofreciendo acceso inmediato a un universo de información académica de primer nivel.</p>
+                <div class="intro-vision-mission">
+                    <h3 data-lang-key="missionTitle">Nuestra Misión</h3>
+                    <p data-lang-key="missionText">Proveer a cada estudiante y docente las herramientas necesarias para la excelencia académica, la investigación innovadora y el desarrollo del pensamiento crítico, sin importar en qué parte del mundo se encuentren.</p>
+                </div>
+            </div>
+            <div class="intro-image">
+                <img src="https://static.vecteezy.com/system/resources/previews/020/809/067/non_2x/asian-university-students-read-books-and-study-together-in-the-library-free-photo.jpg" alt="Estudiantes de Blackwell University investigando en la biblioteca">
+            </div>
+        </div>
+    </section>
+
+    <main class="library-container">
+        <div class="tabs-container">
+            <!-- Pestañas de Navegación -->
+            <ul class="tab-nav">
+                <li><a class="tab-link active" data-tab-target="#featured" data-lang-key="catFeatured">Destacados</a></li>
+                <li><a class="tab-link" data-tab-target="#metasearchers" data-lang-key="catMetasearchers">Metabuscadores y Agregadores</a></li>
+                <li><a class="tab-link" data-tab-target="#articles" data-lang-key="catArticles">Artículos y Revistas</a></li>
+                <li><a class="tab-link" data-tab-target="#books" data-lang-key="catBooks">Libros y Tesis</a></li>
+                <li><a class="tab-link" data-tab-target="#specialized" data-lang-key="catSpecialized">Bases de Datos Especializadas</a></li>
+                <li><a class="tab-link" data-tab-target="#tools" data-lang-key="catTools">Herramientas de Investigación</a></li>
+            </ul>
+
+            <!-- Contenido de las Pestañas -->
+            <div class="tab-content">
+                <!-- Pestaña 1: Destacados (Default) -->
+                <div id="featured" class="tab-pane active">
+                     <div class="resources-grid">
+                        <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div><h3 class="card-title">Google Scholar</h3></header>
+                            <p class="card-description" data-lang-key="descGoogleScholar">Ideal para búsquedas amplias y multidisciplinarias. Encuentra artículos, tesis y libros, enlazando a versiones gratuitas cuando es posible.</p>
+                            <a href="https://scholar.google.com/" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                         <article class="resource-card">
+                            <span class="access-tag institutional" data-lang-key="tagInstitutional">Acceso Institucional</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM5 19V5h14v14H5zm8-12H7v2h6V7zm0 4H7v2h6v-2zm-3 4H7v2h3v-2z"/></svg></div><h3 class="card-title">JSTOR</h3></header>
+                            <p class="card-description" data-lang-key="descJstor">Una de las bibliotecas digitales más confiables para la academia. Contiene millones de artículos, libros y fuentes primarias.</p>
+                            <a href="https://www.jstor.org/" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                        <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.34 1.15c-1.33-.42-2.73-.15-3.89.69l-1.03.75-1.03-.75c-1.15-.84-2.56-1.11-3.89-.69C4.1 2.54 2 5.8 2 8.5c0 4.18 3.05 7.64 7.25 9.25.2.08.41.12.62.12.21 0 .42-.04.62-.12C14.75 16.14 22 12.68 22 8.5c0-2.7-2.1-5.96-5.5-7.12L17.34 1.15z"/></svg></div><h3 class="card-title">PubMed</h3></header>
+                            <p class="card-description" data-lang-key="descPubmed">Esencial para el área de la salud y ciencias biomédicas. Contiene millones de referencias bibliográficas.</p>
+                            <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                        <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg></div><h3 class="card-title">DOAB</h3></header>
+                            <p class="card-description" data-lang-key="descDoabFull">Directorio de Libros de Acceso Abierto. Específico para encontrar libros académicos completos y revisados por pares.</p>
+                            <a href="https://www.doabooks.org/" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                        <article class="resource-card">
+                            <span class="access-tag institutional" data-lang-key="tagInstitutional">Acceso Institucional</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></div><h3 class="card-title">Scopus</h3></header>
+                            <p class="card-description" data-lang-key="descScopus">Una de las bases de datos de resúmenes y citas más grandes del mundo para la literatura de investigación revisada por pares.</p>
+                            <a href="https://www.scopus.com" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                        <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                             <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4.07 11h3.42c.43 2.62 1.93 4.88 3.97 6.34A8.01 8.01 0 0 1 4.07 11zm8.01 8.23c-1.33-1.04-2.38-2.5-2.98-4.23h5.96c-.6 1.73-1.65 3.19-2.98 4.23zM16.51 11H12.9c-.2-.84-.5-1.63-.88-2.34 2.18.04 4.1.75 5.5 1.85-.45.17-.91.3-1.4.49z"/></svg></div><h3 class="card-title">Internet Archive</h3></header>
+                            <p class="card-description" data-lang-key="descArchiveFull">Una biblioteca digital inmensa con libros, textos históricos, documentos en dominio público, sitios web archivados y más.</p>
+                            <a href="https://archive.org/" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Pestaña 2: Metabuscadores y Agregadores -->
+                <div id="metasearchers" class="tab-pane">
+                    <div class="resources-grid">
+                        <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div><h3 class="card-title">Google Scholar</h3></header>
+                            <p class="card-description" data-lang-key="descGoogleScholar">Ideal para búsquedas amplias y multidisciplinarias. Encuentra artículos, tesis y libros, enlazando a versiones gratuitas cuando es posible.</p>
+                            <a href="https://scholar.google.com/" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                        <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zm0-8h14V7H7v2z"/></svg></div><h3 class="card-title">BASE</h3></header>
+                            <p class="card-description" data-lang-key="descBase">Especializado en recolectar documentos de repositorios de acceso abierto. Muy útil para encontrar textos completos gratuitos.</p>
+                            <a href="https://www.base-search.net/" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                        <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                             <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4.07 11h3.42c.43 2.62 1.93 4.88 3.97 6.34A8.01 8.01 0 0 1 4.07 11zm8.01 8.23c-1.33-1.04-2.38-2.5-2.98-4.23h5.96c-.6 1.73-1.65 3.19-2.98 4.23zM16.51 11H12.9c-.2-.84-.5-1.63-.88-2.34 2.18.04 4.1.75 5.5 1.85-.45.17-.91.3-1.4.49z"/></svg></div><h3 class="card-title">CORE</h3></header>
+                            <p class="card-description" data-lang-key="descCore">Un agregador masivo que reúne millones de artículos científicos y documentos de repositorios y revistas de todo el mundo.</p>
+                            <a href="https://core.ac.uk" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                        <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></div><h3 class="card-title">OpenAlex</h3></header>
+                            <p class="card-description" data-lang-key="descOpenalex">Un índice abierto que cataloga el sistema de investigación global, conectando artículos, autores e instituciones.</p>
+                            <a href="https://openalex.org" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Pestaña 3: Artículos y Revistas -->
+                 <div id="articles" class="tab-pane">
+                    <div class="resources-grid">
+                        <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div><h3 class="card-title">DOAJ</h3></header>
+                            <p class="card-description" data-lang-key="descDoaj">Directorio para encontrar revistas científicas de alta calidad y de acceso abierto en múltiples disciplinas.</p>
+                            <a href="https://doaj.org" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                         <article class="resource-card">
+                            <span class="access-tag institutional" data-lang-key="tagInstitutional">Acceso Institucional</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM5 19V5h14v14H5zm8-12H7v2h6V7zm0 4H7v2h6v-2zm-3 4H7v2h3v-2z"/></svg></div><h3 class="card-title">JSTOR</h3></header>
+                            <p class="card-description" data-lang-key="descJstor">Una de las bibliotecas digitales más confiables para la academia. Contiene millones de artículos, libros y fuentes primarias.</p>
+                            <a href="https://www.jstor.org/" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                        <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.34 1.15c-1.33-.42-2.73-.15-3.89.69l-1.03.75-1.03-.75c-1.15-.84-2.56-1.11-3.89-.69C4.1 2.54 2 5.8 2 8.5c0 4.18 3.05 7.64 7.25 9.25.2.08.41.12.62.12.21 0 .42-.04.62-.12C14.75 16.14 22 12.68 22 8.5c0-2.7-2.1-5.96-5.5-7.12L17.34 1.15z"/></svg></div><h3 class="card-title">PubMed</h3></header>
+                            <p class="card-description" data-lang-key="descPubmed">Esencial para el área de la salud y ciencias biomédicas. Contiene millones de referencias bibliográficas.</p>
+                            <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                         <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div><h3 class="card-title">Redalyc</h3></header>
+                            <p class="card-description" data-lang-key="descRedalyc">Enfocada en la producción científica de América Latina. Perfecta para encontrar artículos de la región en acceso abierto.</p>
+                            <a href="https://www.redalyc.org/" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Pestaña 4: Libros y Tesis -->
+                <div id="books" class="tab-pane">
+                     <div class="resources-grid">
+                        <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg></div><h3 class="card-title">DOAB</h3></header>
+                            <p class="card-description" data-lang-key="descDoabFull">Directorio de Libros de Acceso Abierto. Específico para encontrar libros académicos completos y revisados por pares.</p>
+                            <a href="https://www.doabooks.org/" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                        <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg></div><h3 class="card-title">Google Books</h3></header>
+                            <p class="card-description" data-lang-key="descGbooks">Busca en el índice más completo de libros de texto completos del mundo. Previsualiza y, en algunos casos, lee libros enteros.</p>
+                            <a href="https://books.google.com/" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                        <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                             <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4.07 11h3.42c.43 2.62 1.93 4.88 3.97 6.34A8.01 8.01 0 0 1 4.07 11zm8.01 8.23c-1.33-1.04-2.38-2.5-2.98-4.23h5.96c-.6 1.73-1.65 3.19-2.98 4.23zM16.51 11H12.9c-.2-.84-.5-1.63-.88-2.34 2.18.04 4.1.75 5.5 1.85-.45.17-.91.3-1.4.49z"/></svg></div><h3 class="card-title">Internet Archive</h3></header>
+                            <p class="card-description" data-lang-key="descArchiveFull">Una biblioteca digital inmensa con libros, textos históricos, documentos en dominio público, sitios web archivados y más.</p>
+                            <a href="https://archive.org/" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Pestaña 5: Bases de Datos Especializadas -->
+                <div id="specialized" class="tab-pane">
+                    <div class="resources-grid">
+                         <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div><h3 class="card-title">BVSALUD</h3></header>
+                            <p class="card-description" data-lang-key="descBvsalud">Biblioteca Virtual en Salud, muy completa para encontrar documentos y artículos en el área de la salud en español y portugués.</p>
+                            <a href="https://bvsalud.org/" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                        <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div><h3 class="card-title">Dialnet</h3></header>
+                            <p class="card-description" data-lang-key="descDialnet">El portal bibliográfico más importante del ámbito hispano, con un gran enfoque en ciencias sociales y humanidades.</p>
+                            <a href="https://dialnet.unirioja.es/" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                        <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div><h3 class="card-title">CiNii</h3></header>
+                            <p class="card-description" data-lang-key="descCinii">Base de datos japonesa que permite buscar artículos, libros y disertaciones tanto en japonés como en inglés.</p>
+                            <a href="https://ci.nii.ac.jp" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Pestaña 6: Herramientas de Investigación -->
+                 <div id="tools" class="tab-pane">
+                    <div class="resources-grid">
+                        <article class="resource-card">
+                             <span class="access-tag private" data-lang-key="tagPrivate">Ingreso Privado</span>
+                             <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z M9.5 16.5l7-4.5-7-4.5v9z"/></svg></div><h3 class="card-title">Dimensions AI</h3></header>
+                            <p class="card-description" data-lang-key="descDimensions">Excelente para analizar el impacto de la investigación. Permite ver métricas de citas, referencias y encontrar algunos textos abiertos.</p>
+                            <a href="https://www.dimensions.ai" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                        <article class="resource-card">
+                            <span class="access-tag institutional" data-lang-key="tagInstitutional">Acceso Institucional</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></div><h3 class="card-title">Scopus</h3></header>
+                            <p class="card-description" data-lang-key="descScopus">Una de las bases de datos de resúmenes y citas más grandes del mundo para la literatura de investigación revisada por pares.</p>
+                            <a href="https://www.scopus.com" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                         <article class="resource-card">
+                            <span class="access-tag public" data-lang-key="tagPublic">Acceso Público</span>
+                            <header class="card-header"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M2 20h20V4H2v16zm2-14h16v12H4V6z"/></svg></div><h3 class="card-title">arXiv</h3></header>
+                            <p class="card-description" data-lang-key="descArxiv">Un repositorio de acceso abierto para preprints académicos en física, matemáticas, informática, biología cuantitativa y más.</p>
+                            <a href="https://arxiv.org/" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Acceder</a>
+                        </article>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p data-lang-key="footer">&copy; 2025 Blackwell Global University. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabsContainer = document.querySelector('.tabs-container');
+            if (tabsContainer) {
+                tabsContainer.addEventListener('click', (e) => {
+                    const clickedTab = e.target.closest('.tab-link');
+                    if (!clickedTab) return;
+                    e.preventDefault();
+                    
+                    const tabLinks = tabsContainer.querySelectorAll('.tab-link');
+                    const tabPanes = tabsContainer.querySelectorAll('.tab-pane');
+
+                    tabLinks.forEach(link => link.classList.remove('active'));
+                    tabPanes.forEach(pane => pane.classList.remove('active'));
+
+                    clickedTab.classList.add('active');
+                    const targetPane = document.querySelector(clickedTab.dataset.tabTarget);
+                    if (targetPane) {
+                        targetPane.classList.add('active');
+                    }
+                });
+            }
+
+            const translations = {
+                es: {
+                    heroTitle: "Biblioteca Digital",
+                    heroSubtitle: "Tu portal de acceso a los recursos académicos y bases de datos científicas más importantes del mundo.",
+                    introTitle: "Conocimiento sin Fronteras",
+                    introParagraph: "La Biblioteca Digital de Blackwell Global University es el epicentro de la investigación y el aprendizaje para nuestra comunidad global. Diseñada para apoyar a nuestros estudiantes de Bachelor, Máster y Doctorado, esta plataforma elimina las barreras geográficas, ofreciendo acceso inmediato a un universo de información académica de primer nivel.",
+                    missionTitle: "Nuestra Misión",
+                    missionText: "Proveer a cada estudiante y docente las herramientas necesarias para la excelencia académica, la investigación innovadora y el desarrollo del pensamiento crítico, sin importar en qué parte del mundo se encuentren.",
+                    btnAccess: "Acceder", tagPublic: "Acceso Público", tagPrivate: "Ingreso Privado", tagInstitutional: "Acceso Institucional",
+                    catFeatured: "Destacados", catMetasearchers: "Metabuscadores y Agregadores", catArticles: "Artículos y Revistas", catBooks: "Libros y Tesis", catSpecialized: "Bases de Datos Especializadas", catTools: "Herramientas de Investigación",
+                    descGoogleScholar: "Ideal para búsquedas amplias y multidisciplinarias. Encuentra artículos, tesis y libros, enlazando a versiones gratuitas cuando es posible.",
+                    descBase: "Especializado en recolectar documentos de repositorios de acceso abierto. Muy útil para encontrar textos completos gratuitos.",
+                    descCore: "Un agregador masivo que reúne millones de artículos científicos y documentos de repositorios y revistas de todo el mundo.",
+                    descOpenalex: "Un índice abierto que cataloga el sistema de investigación global, conectando artículos, autores e instituciones.",
+                    descDoaj: "Directorio para encontrar revistas científicas de alta calidad y de acceso abierto en múltiples disciplinas.",
+                    descJstor: "Una de las bibliotecas digitales más confiables para la academia. Contiene millones de artículos, libros y fuentes primarias.",
+                    descPubmed: "Esencial para el área de la salud y ciencias biomédicas. Contiene millones de referencias bibliográficas.",
+                    descRedalyc: "Enfocada en la producción científica de América Latina. Perfecta para encontrar artículos de la región en acceso abierto.",
+                    descDialnet: "El portal bibliográfico más importante del ámbito hispano, con un gran enfoque en ciencias sociales y humanidades.",
+                    descCinii: "Base de datos japonesa que permite buscar artículos, libros y disertaciones tanto en japonés como en inglés.",
+                    descDoabFull: "Directorio de Libros de Acceso Abierto. Específico para encontrar libros académicos completos y revisados por pares.",
+                    descGbooks: "Busca en el índice más completo de libros de texto completos del mundo. Previsualiza y, en algunos casos, lee libros enteros.",
+                    descArchiveFull: "Una biblioteca digital inmensa con libros, textos históricos, documentos en dominio público, sitios web archivados y más.",
+                    descBvsalud: "Biblioteca Virtual en Salud, muy completa para encontrar documentos y artículos en el área de la salud en español y portugués.",
+                    descDimensions: "Excelente para analizar el impacto de la investigación. Permite ver métricas de citas, referencias y encontrar algunos textos abiertos.",
+                    descScopus: "Una de las bases de datos de resúmenes y citas más grandes del mundo para la literatura de investigación revisada por pares.",
+                    descArxiv: "Un repositorio de acceso abierto para preprints académicos en física, matemáticas, informática, biología cuantitativa y más.",
+                    footer: "© 2025 Blackwell Global University. Todos los derechos reservados."
+                },
+                en: {
+                    heroTitle: "Digital Library",
+                    heroSubtitle: "Your access portal to the world's most important academic resources and scientific databases.",
+                    introTitle: "Knowledge Without Borders",
+                    introParagraph: "The Blackwell Global University Digital Library is the epicenter of research and learning for our global community. Designed to support our Bachelor's, Master's, and PhD students, this platform removes geographical barriers, offering immediate access to a universe of world-class academic information.",
+                    missionTitle: "Our Mission",
+                    missionText: "To provide every student and faculty member with the necessary tools for academic excellence, innovative research, and the development of critical thinking, regardless of where they are in the world.",
+                    btnAccess: "Access", tagPublic: "Public Access", tagPrivate: "Private Access", tagInstitutional: "Institutional Access",
+                    catFeatured: "Featured", catMetasearchers: "Metasearchers & Aggregators", catArticles: "Articles & Journals", catBooks: "Books & Theses", catSpecialized: "Specialized Databases", catTools: "Research Tools",
+                    descGoogleScholar: "Ideal for broad, multidisciplinary searches. Find articles, theses, books, and citations, often linking to free versions.",
+                    descBase: "Specialized in harvesting documents from open access repositories. Very useful for finding free full-text documents.",
+                    descCore: "A massive aggregator that gathers millions of scientific articles and documents from repositories and journals worldwide.",
+                    descOpenalex: "An open index that catalogs the global research system, connecting articles, authors, and institutions.",
+                    descDoaj: "Directory to find high-quality, open access scientific journals across multiple disciplines.",
+                    descJstor: "One of the most trusted digital libraries for academia. Contains millions of articles, books, and primary sources.",
+                    descPubmed: "Essential for the health and biomedical sciences. Contains millions of bibliographic references.",
+                    descRedalyc: "Focused on the scientific output of Latin America. Perfect for finding articles from the region in open access.",
+                    descDialnet: "The most important bibliographic portal in the Hispanic world, with a strong focus on social sciences and humanities.",
+                    descCinii: "Japanese database that allows searching for articles, books, and dissertations in both Japanese and English.",
+                    descDoabFull: "Directory of Open Access Books. Specific for finding complete, peer-reviewed academic books.",
+                    descGbooks: "Search the world's most comprehensive index of full-text books. Preview and in some cases read entire books.",
+                    descArchiveFull: "An immense digital library with books, historical texts, public domain documents, archived websites, and more.",
+                    descBvsalud: "Virtual Health Library, very complete for finding documents and articles in the health area in Spanish and Portuguese.",
+                    descDimensions: "Excellent for analyzing research impact. Allows viewing citation metrics, references, and finding some open access texts.",
+                    descScopus: "One of the largest abstract and citation databases of peer-reviewed research literature in the world.",
+                    descArxiv: "An open-access repository for academic preprints in physics, mathematics, computer science, quantitative biology, and more.",
+                    footer: "© 2025 Blackwell Global University. All rights reserved."
+                }
+            };
+
+            const langEsBtn = document.getElementById('lang-es');
+            const langEnBtn = document.getElementById('lang-en');
+            
+            const changeLanguage = (lang) => {
+                document.documentElement.lang = lang;
+                langEsBtn.classList.toggle('active', lang === 'es');
+                langEnBtn.classList.toggle('active', lang === 'en');
+                const elements = document.querySelectorAll('[data-lang-key]');
+                elements.forEach(el => {
+                    const key = el.dataset.langKey;
+                    if (translations[lang] && translations[lang][key]) {
+                        el.textContent = translations[lang][key];
+                    }
+                });
+            };
+
+            langEsBtn.addEventListener('click', () => changeLanguage('es'));
+            langEnBtn.addEventListener('click', () => changeLanguage('en'));
+            
+            changeLanguage('es');
+        });
+    </script>
+</body>
+</html>
