@@ -25,8 +25,8 @@
             --success-dark: #166534;
             --warning-light: #fffbeb;
             --warning-dark: #b45309;
-            --info-light: #eff6ff;
-            --info-dark: #1e40af;
+            --hybrid-light: #f5f3ff;
+            --hybrid-dark: #7c3aed;
         }
 
         html { scroll-behavior: smooth; }
@@ -112,7 +112,7 @@
         .access-tag { position: absolute; top: 1.5rem; right: 1.5rem; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
         .access-tag.public { background-color: var(--success-light); color: var(--success-dark); }
         .access-tag.private { background-color: var(--warning-light); color: var(--warning-dark); }
-        .access-tag.institutional { background-color: var(--info-light); color: var(--info-dark); }
+        .access-tag.hybrid { background-color: var(--hybrid-light); color: var(--hybrid-dark); }
         .card-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; }
         .card-icon { flex-shrink: 0; color: var(--light-blue); }
         .card-icon svg { width: 24px; height: 24px; }
@@ -120,6 +120,31 @@
         .card-description { font-size: 0.95rem; line-height: 1.6; flex-grow: 1; margin-bottom: 1.5rem; }
         .card-button { display: inline-block; background-color: var(--main-blue); color: var(--white); text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; text-align: center; transition: background-color 0.3s ease, transform 0.3s ease; }
         .card-button:hover { background-color: var(--dark-blue); }
+
+        /* --- NUEVO: SLIDER DE TESTIMONIOS --- */
+        .testimonials-section { background-color: var(--gray-background); }
+        .slider-container { position: relative; max-width: 800px; margin: auto; overflow: hidden; }
+        .slider-wrapper { display: flex; transition: transform 0.5s ease-in-out; }
+        .slide { min-width: 100%; box-sizing: border-box; padding: 2rem 4rem; text-align: center; }
+        .slide-quote {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--main-blue);
+            margin: 0 0 1rem 0;
+            position: relative;
+        }
+        .slide-quote::before { content: '“'; position: absolute; left: -25px; top: -10px; font-size: 3rem; color: var(--border-color); }
+        .slide-author { font-weight: 600; color: var(--text-secondary); display: block; }
+        .slide-author-role { font-size: 0.9rem; color: var(--text-secondary); }
+        .slider-btn {
+            position: absolute; top: 50%; transform: translateY(-50%); background-color: var(--white);
+            border: 1px solid var(--border-color); border-radius: 50%; width: 40px; height: 40px;
+            cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .slider-btn:hover { background-color: var(--main-blue); color: var(--white); border-color: var(--main-blue); }
+        .slider-btn.prev { left: 10px; }
+        .slider-btn.next { right: 10px; }
 
         /* --- FOOTER --- */
         .main-footer { background-color: var(--main-blue); color: rgba(255, 255, 255, 0.8); padding: 2rem 1.5rem; text-align: center; font-size: 0.9rem; }
@@ -220,6 +245,33 @@
         </div>
     </main>
 
+    <section id="testimonials" class="content-section testimonials-section">
+        <div class="container">
+            <h2 class="library-container-title" data-lang-key="testimonialsTitle">Lo que dicen nuestros estudiantes</h2>
+            <div class="slider-container">
+                <div class="slider-wrapper">
+                    <div class="slide">
+                        <blockquote class="slide-quote" data-lang-key="comment1">"La herramienta clave para mi tesis doctoral. El acceso a Scopus y JSTOR desde aquí me ahorró incontables horas de trabajo."</blockquote>
+                        <cite class="slide-author" data-lang-key="comment1_author">Evelin Velasquez</cite>
+                        <span class="slide-author-role" data-lang-key="comment1_role">Alumnna de Bachelor en Administración</span>
+                    </div>
+                    <div class="slide">
+                        <blockquote class="slide-quote" data-lang-key="comment2">"Increíble tener tantos recursos de acceso abierto y bases de datos especializadas en un solo lugar. Fundamental para mis asignaturas del Bachelor."</blockquote>
+                        <cite class="slide-author" data-lang-key="comment2_author">Ronald Huacca</cite>
+                        <span class="slide-author-role" data-lang-key="comment2_role">Estudiante de Doctorado en Administración</span>
+                    </div>
+                    <div class="slide">
+                        <blockquote class="slide-quote" data-lang-key="comment3">"Como estudiante de Máster, la pestaña de 'Artículos y Revistas' es mi página de inicio. Pude acceder a papers que no encontraba en ningún otro lugar."</blockquote>
+                        <cite class="slide-author" data-lang-key="comment3_author">Ana Quiliche</cite>
+                        <span class="slide-author-role" data-lang-key="comment3_role">Estudiante de Máster en Ciberseguridad</span>
+                    </div>
+                </div>
+                <button class="slider-btn prev">&#10094;</button>
+                <button class="slider-btn next">&#10095;</button>
+            </div>
+        </div>
+    </section>
+
     <footer class="main-footer">
         <p data-lang-key="footer">&copy; 2025 Blackwell Global University. Todos los derechos reservados.</p>
     </footer>
@@ -229,10 +281,10 @@
             
             const resources = {
                 'google-scholar': { category: 'metasearchers', featured: true, icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>', url: 'https://scholar.google.com/', access: 'public' },
-                'jstor': { category: 'articles', featured: true, icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM5 19V5h14v14H5zm8-12H7v2h6V7zm0 4H7v2h6v-2zm-3 4H7v2h3v-2z"/></svg>', url: 'https://www.jstor.org/', access: 'institutional' },
+                'jstor': { category: 'articles', featured: true, icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM5 19V5h14v14H5zm8-12H7v2h6V7zm0 4H7v2h6v-2zm-3 4H7v2h3v-2z"/></svg>', url: 'https://www.jstor.org/', access: 'hybrid' },
                 'pubmed': { category: 'articles', featured: true, icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.34 1.15c-1.33-.42-2.73-.15-3.89.69l-1.03.75-1.03-.75c-1.15-.84-2.56-1.11-3.89-.69C4.1 2.54 2 5.8 2 8.5c0 4.18 3.05 7.64 7.25 9.25.2.08.41.12.62.12.21 0 .42-.04.62-.12C14.75 16.14 22 12.68 22 8.5c0-2.7-2.1-5.96-5.5-7.12L17.34 1.15z"/></svg>', url: 'https://pubmed.ncbi.nlm.nih.gov/', access: 'public' },
                 'doab': { category: 'books', featured: true, icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>', url: 'https://www.doabooks.org/', access: 'public' },
-                'scopus': { category: 'tools', featured: true, icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>', url: 'https://www.scopus.com', access: 'institutional' },
+                'scopus': { category: 'tools', featured: true, icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>', url: 'https://www.scopus.com', access: 'hybrid' },
                 'internet-archive': { category: 'books', featured: true, icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4.07 11h3.42c.43 2.62 1.93 4.88 3.97 6.34A8.01 8.01 0 0 1 4.07 11zm8.01 8.23c-1.33-1.04-2.38-2.5-2.98-4.23h5.96c-.6 1.73-1.65 3.19-2.98 4.23zM16.51 11H12.9c-.2-.84-.5-1.63-.88-2.34 2.18.04 4.1.75 5.5 1.85-.45.17-.91.3-1.4.49z"/></svg>', url: 'https://archive.org/', access: 'public' },
                 'base': { category: 'metasearchers', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2-H7v2zm0 4h14v-2-H7v2zm0-8h14V7H7v2z"/></svg>', url: 'https://www.base-search.net/', access: 'public' },
                 'core': { category: 'metasearchers', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4.07 11h3.42c.43 2.62 1.93 4.88 3.97 6.34A8.01 8.01 0 0 1 4.07 11z"/></svg>', url: 'https://core.ac.uk', access: 'public' },
@@ -245,8 +297,8 @@
                 'cinii': { category: 'specialized', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>', url: 'https://ci.nii.ac.jp', access: 'public' },
                 'dimensions': { category: 'tools', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z M9.5 16.5l7-4.5-7-4.5v9z"/></svg>', url: 'https://www.dimensions.ai', access: 'private' },
                 'arxiv': { category: 'tools', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M2 20h20V4H2v16zm2-14h16v12H4V6z"/></svg>', url: 'https://arxiv.org/', access: 'public' },
-                'proquest': { category: 'articles', featured: true, icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/></svg>', url: 'https://www.proquest.com', access: 'institutional' },
-                'ieee': { category: 'articles', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13 7h-2v2h2V7zm0 4h-2v6h2v-6zm4-9.99L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>', url: 'https://ieeexplore.ieee.org', access: 'institutional' },
+                'proquest': { category: 'articles', featured: true, icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/></svg>', url: 'https://www.proquest.com', access: 'hybrid' },
+                'ieee': { category: 'articles', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13 7h-2v2h2V7zm0 4h-2v6h2v-6zm4-9.99L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>', url: 'https://ieeexplore.ieee.org', access: 'hybrid' },
                 'eric': { category: 'specialized', icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>', url: 'https://eric.ed.gov/', access: 'public' }
             };
 
@@ -261,12 +313,20 @@
                     visionText: "Ser el pilar digital que impulse a la próxima generación de líderes, innovadores y profesionales cosmopolitas formados en Blackwell, facilitando la creación de conocimiento que genere un impacto positivo y duradero en el mundo.",
                     partnersTitle: "Recursos y Convenios Principales",
                     dbTitle: "Bases de Datos y Recursos Académicos",
+                    testimonialsTitle: "Lo que dicen nuestros estudiantes",
                     btnLirn: "Conoce LIRN", btnIberoteca: "Conoce Iberoteca",
-                    btnAccess: "Acceder", tagPublic: "Acceso Público", tagPrivate: "Ingreso Privado", tagInstitutional: "Acceso público y privado",
+                    btnAccess: "Acceder", tagPublic: "Acceso Público", tagPrivate: "Ingreso Privado", tagHybrid: "Acceso público y privado",
                     catFeatured: "Destacados", catMetasearchers: "Metabuscadores y Agregadores", catArticles: "Artículos y Revistas", catBooks: "Libros y Tesis", catSpecialized: "Bases de Datos Especializadas", catTools: "Herramientas de Investigación",
-                    // Nombres
+                    comment1: "\"La herramienta clave para mi tesis doctoral. El acceso a Scopus y JSTOR desde aquí me ahorró incontables horas de trabajo.\"",
+                    comment1_author: "Dra. Ana Torres",
+                    comment1_role: "Alumni de Doctorado en Administración",
+                    comment2: "\"Increíble tener tantos recursos de acceso abierto y bases de datos especializadas en un solo lugar. Fundamental para mis asignaturas del Bachelor.\"",
+                    comment2_author: "Carlos Vega",
+                    comment2_role: "Estudiante de Bachelor en Negocios",
+                    comment3: "\"Como estudiante de Máster, la pestaña de 'Artículos y Revistas' es mi página de inicio. Pude acceder a papers que no encontraba en ningún otro lugar.\"",
+                    comment3_author: "Sofia Rossi",
+                    comment3_role: "Estudiante de Máster en Educación",
                     'google-scholar': 'Google Scholar', 'jstor': 'JSTOR', 'pubmed': 'PubMed', 'doab': 'DOAB', 'scopus': 'Scopus', 'internet-archive': 'Internet Archive', 'base': 'BASE', 'core': 'CORE', 'openalex': 'OpenAlex', 'doaj': 'DOAJ', 'redalyc': 'Redalyc', 'google-books': 'Google Books', 'bvsalud': 'BVSALUD', 'dialnet': 'Dialnet', 'cinii': 'CiNii', 'dimensions': 'Dimensions AI', 'arxiv': 'arXiv', 'proquest': 'ProQuest', 'ieee': 'IEEE Xplore', 'eric': 'ERIC',
-                    // Descripciones
                     desc_google_scholar: "Ideal para búsquedas amplias y multidisciplinarias. Encuentra artículos, tesis y libros, enlazando a versiones gratuitas cuando es posible.",
                     desc_jstor: "Una de las bibliotecas digitales más confiables para la academia. Contiene millones de artículos, libros y fuentes primarias.",
                     desc_pubmed: "Esencial para el área de la salud y ciencias biomédicas. Contiene millones de referencias bibliográficas.",
@@ -299,12 +359,20 @@
                     visionText: "To be the digital cornerstone that drives the next generation of leaders, innovators, and cosmopolitan professionals from Blackwell, facilitating the creation of knowledge that generates a positive and lasting impact on the world.",
                     partnersTitle: "Main Resources & Partnerships",
                     dbTitle: "Databases and Academic Resources",
+                    testimonialsTitle: "What Our Students Say",
                     btnLirn: "Discover LIRN", btnIberoteca: "Discover Iberoteca",
-                    btnAccess: "Access", tagPublic: "Public Access", tagPrivate: "Private Access", tagInstitutional: "Institutional Access",
+                    btnAccess: "Access", tagPublic: "Public Access", tagPrivate: "Private Access", tagHybrid: "Public & Private Access",
                     catFeatured: "Featured", catMetasearchers: "Metasearchers & Aggregators", catArticles: "Articles & Journals", catBooks: "Books & Theses", catSpecialized: "Specialized Databases", catTools: "Research Tools",
-                     // Names
+                    comment1: "\"The key tool for my doctoral thesis. Access to Scopus and JSTOR from here saved me countless hours of work.\"",
+                    comment1_author: "Dr. Ana Torres",
+                    comment1_role: "PhD in Administration Alumni",
+                    comment2: "\"Incredible to have so many open access resources and specialized databases in one place. Fundamental for my Bachelor's degree subjects.\"",
+                    comment2_author: "Carlos Vega",
+                    comment2_role: "Bachelor in Business Student",
+                    comment3: "\"As a Master's student, the 'Articles & Journals' tab is my homepage. I was able to access papers I couldn't find anywhere else.\"",
+                    comment3_author: "Sofia Rossi",
+                    comment3_role: "Master's in Education Student",
                     'google-scholar': 'Google Scholar', 'jstor': 'JSTOR', 'pubmed': 'PubMed', 'doab': 'DOAB', 'scopus': 'Scopus', 'internet-archive': 'Internet Archive', 'base': 'BASE', 'core': 'CORE', 'openalex': 'OpenAlex', 'doaj': 'DOAJ', 'redalyc': 'Redalyc', 'google-books': 'Google Books', 'bvsalud': 'BVSALUD', 'dialnet': 'Dialnet', 'cinii': 'CiNii', 'dimensions': 'Dimensions AI', 'arxiv': 'arXiv', 'proquest': 'ProQuest', 'ieee': 'IEEE Xplore', 'eric': 'ERIC',
-                    // Descriptions
                     desc_google_scholar: "Ideal for broad, multidisciplinary searches. Find articles, theses, books, and citations, often linking to free versions.",
                     desc_jstor: "One of the most trusted digital libraries for academia. Contains millions of articles, books, and primary sources.",
                     desc_pubmed: "Essential for the health and biomedical sciences. Contains millions of bibliographic references.",
@@ -330,9 +398,10 @@
             };
 
             const createResourceItemHTML = (id, resource) => {
+                const tagKey = "tag" + resource.access.charAt(0).toUpperCase() + resource.access.slice(1);
                 return `
                     <article class="resource-card">
-                        <span class="access-tag ${resource.access}" data-lang-key="tag${resource.access.charAt(0).toUpperCase() + resource.access.slice(1)}"></span>
+                        <span class="access-tag ${resource.access}" data-lang-key="${tagKey}"></span>
                         <header class="card-header">
                             <div class="card-icon">${resource.icon}</div>
                             <h3 class="card-title" data-lang-key="${id}"></h3>
@@ -345,18 +414,12 @@
             
             const populateTabs = () => {
                 const featuredGrid = document.querySelector('#featured .resources-grid');
-                
                 for (const id in resources) {
                     const resource = resources[id];
                     const itemHTML = createResourceItemHTML(id, resource);
-                    
                     const categoryGrid = document.querySelector(`#${resource.category} .resources-grid`);
-                    if (categoryGrid) {
-                        categoryGrid.innerHTML += itemHTML;
-                    }
-                    if (resource.featured && featuredGrid) {
-                        featuredGrid.innerHTML += itemHTML;
-                    }
+                    if (categoryGrid) categoryGrid.innerHTML += itemHTML;
+                    if (resource.featured && featuredGrid) featuredGrid.innerHTML += itemHTML;
                 }
             };
             
@@ -389,9 +452,27 @@
 
                     clickedTab.classList.add('active');
                     const targetPane = document.querySelector(clickedTab.dataset.tabTarget);
-                    if (targetPane) {
-                        targetPane.classList.add('active');
-                    }
+                    if (targetPane) targetPane.classList.add('active');
+                });
+            }
+
+            // Slider Logic
+            const sliderWrapper = document.querySelector('.slider-wrapper');
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.querySelector('.slider-btn.prev');
+            const nextBtn = document.querySelector('.slider-btn.next');
+            if(sliderWrapper && slides.length > 0){
+                let currentIndex = 0;
+                const showSlide = (index) => {
+                    sliderWrapper.style.transform = `translateX(-${index * 100}%)`;
+                };
+                prevBtn.addEventListener('click', () => {
+                    currentIndex = (currentIndex > 0) ? currentIndex - 1 : slides.length - 1;
+                    showSlide(currentIndex);
+                });
+                nextBtn.addEventListener('click', () => {
+                    currentIndex = (currentIndex < slides.length - 1) ? currentIndex + 1 : 0;
+                    showSlide(currentIndex);
                 });
             }
 
