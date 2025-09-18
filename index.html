@@ -51,118 +51,65 @@
         }
         .hero-section h1 {
             font-family: var(--font-serif); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700;
-            margin: 0 0 0.5rem 0; text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin: 0; text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
-        /* --- SECCIÓN BIENVENIDA Y CONVENIOS --- */
-        .welcome-section {
-            padding: 4rem 1.5rem;
-            background-color: var(--gray-background);
-        }
-        .welcome-container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        .welcome-block {
-            display: grid;
-            grid-template-columns: 1fr;
-            align-items: center;
-            gap: 3rem;
-            margin-bottom: 4rem;
-        }
-        @media (min-width: 992px) { .welcome-block { grid-template-columns: 1.1fr 0.9fr; } }
-        .welcome-text h2 { font-family: var(--font-serif); font-size: 2.5rem; color: var(--main-blue); margin-top: 0; }
-        .welcome-text p { line-height: 1.7; font-size: 1.1rem; }
-        .welcome-image img { width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .mission-vision h3 { font-family: var(--font-serif); font-size: 1.5rem; color: var(--light-blue); border-left: 3px solid var(--light-blue); padding-left: 1rem; margin-top: 2rem; }
+        /* --- ESTILOS DE SECCIONES GENERALES --- */
+        .content-section { padding: 4rem 1.5rem; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .grid-layout { display: grid; grid-template-columns: 1fr; align-items: center; gap: 3rem; }
+        @media (min-width: 992px) { .grid-layout { grid-template-columns: 1fr 1fr; } .grid-layout.reversed > :first-child { order: 2; } }
         
-        .partners-title {
-            text-align: center;
-            font-family: var(--font-serif);
-            font-size: 2.25rem;
-            color: var(--main-blue);
-            margin-bottom: 2.5rem;
-        }
-        .partner-cards-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            justify-content: center;
-        }
-        @media (min-width: 768px) { .partner-cards-grid { grid-template-columns: repeat(2, 1fr); max-width: 900px; margin: 0 auto; } }
-
-        .partner-card {
+        /* --- SECCIÓN BIENVENIDA CON VIDEO --- */
+        #welcome .text-content h2 { font-family: var(--font-serif); font-size: 2.5rem; color: var(--main-blue); margin-top: 0; }
+        #welcome .text-content p { line-height: 1.7; font-size: 1.1rem; }
+        .video-container {
             position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
         }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        /* --- SECCIÓN MISIÓN Y VISIÓN --- */
+        #mission-vision { background-color: var(--gray-background); }
+        #mission-vision .image-content img { width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .mission-vision-text h3 { font-family: var(--font-serif); font-size: 1.75rem; color: var(--light-blue); border-left: 3px solid var(--light-blue); padding-left: 1rem; margin-top: 0; margin-bottom: 1rem; }
+        .mission-vision-text p { line-height: 1.7; }
+        .mission-vision-text div:first-child { margin-bottom: 2.5rem; }
+
+        /* --- SECCIÓN CONVENIOS --- */
+        .partners-section { background-color: var(--gray-background); padding-top: 0; }
+        .partners-title { text-align: center; font-family: var(--font-serif); font-size: 2.25rem; color: var(--main-blue); margin-bottom: 2.5rem; }
+        .partner-cards-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+        @media (min-width: 768px) { .partner-cards-grid { grid-template-columns: repeat(2, 1fr); max-width: 900px; margin: 0 auto; } }
+        .partner-card { position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
         .partner-card:hover { transform: translateY(-10px); }
         .partner-card img { width: 100%; display: block; }
-        .partner-card-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 2rem;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            text-align: center;
-        }
-        .partner-card-button {
-            background-color: var(--white);
-            color: var(--main-blue);
-            text-decoration: none;
-            padding: 0.75rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .partner-card-button:hover {
-            background-color: var(--dark-blue);
-            color: var(--white);
-        }
+        .partner-card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); text-align: center; }
+        .partner-card-button { background-color: var(--white); color: var(--main-blue); text-decoration: none; padding: 0.75rem 2rem; border-radius: 50px; font-weight: 600; transition: all 0.3s ease; }
+        .partner-card-button:hover { background-color: var(--dark-blue); color: var(--white); }
 
         /* --- CONTENEDOR DE PESTAÑAS --- */
         .library-container { max-width: 1280px; margin: 0 auto; padding: 4rem 1.5rem; }
-        .library-container-title {
-            text-align: center;
-            font-family: var(--font-serif);
-            font-size: 2.5rem;
-            color: var(--main-blue);
-            margin-bottom: 2.5rem;
-        }
+        .library-container-title { text-align: center; font-family: var(--font-serif); font-size: 2.5rem; color: var(--main-blue); margin-bottom: 2.5rem; }
         .tabs-container { max-width: 100%; margin: 0 auto; }
-        .tab-nav {
-            display: flex; flex-wrap: wrap; list-style: none; padding: 0;
-            margin: 0 0 2.5rem 0; border-bottom: 2px solid var(--border-color);
-        }
-        .tab-link {
-            display: flex; align-items: center; gap: 0.5rem; padding: 1rem 1.5rem; margin-bottom: -2px;
-            cursor: pointer; text-decoration: none; font-weight: 500; font-size: 1rem; color: var(--text-secondary);
-            border: 2px solid transparent; border-radius: 8px 8px 0 0; transition: all 0.3s ease;
-        }
+        .tab-nav { display: flex; flex-wrap: wrap; list-style: none; padding: 0; margin: 0 0 2.5rem 0; border-bottom: 2px solid var(--border-color); }
+        .tab-link { display: flex; align-items: center; gap: 0.5rem; padding: 1rem 1.5rem; margin-bottom: -2px; cursor: pointer; text-decoration: none; font-weight: 500; font-size: 1rem; color: var(--text-secondary); border: 2px solid transparent; border-radius: 8px 8px 0 0; transition: all 0.3s ease; }
         .tab-link:hover { background-color: #f3f4f6; color: var(--main-blue); }
-        .tab-link.active {
-            font-weight: 600; color: var(--main-blue); border-color: var(--border-color);
-            border-bottom-color: var(--white); background-color: var(--white);
-        }
+        .tab-link.active { font-weight: 600; color: var(--main-blue); border-color: var(--border-color); border-bottom-color: var(--white); background-color: var(--white); }
         .tab-pane { display: none; animation: fadeIn 0.5s ease; }
         .tab-pane.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- TARJETAS DE RECURSOS --- */
         .resources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
-        .resource-card {
-            background-color: var(--white); border: 1px solid var(--border-color); border-radius: 12px;
-            padding: 1.5rem; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; overflow: hidden;
-        }
+        .resource-card { background-color: var(--white); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; overflow: hidden; }
         .resource-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1); }
-        .access-tag {
-            position: absolute; top: 1.5rem; right: 1.5rem; padding: 4px 12px; border-radius: 20px;
-            font-size: 0.75rem; font-weight: 600;
-        }
+        .access-tag { position: absolute; top: 1.5rem; right: 1.5rem; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
         .access-tag.public { background-color: var(--success-light); color: var(--success-dark); }
         .access-tag.private { background-color: var(--warning-light); color: var(--warning-dark); }
         .access-tag.institutional { background-color: var(--info-light); color: var(--info-dark); }
@@ -171,12 +118,8 @@
         .card-icon svg { width: 24px; height: 24px; }
         .card-title { font-family: var(--font-sans); font-size: 1.25rem; font-weight: 600; color: var(--main-blue); margin: 0; padding-right: 90px; }
         .card-description { font-size: 0.95rem; line-height: 1.6; flex-grow: 1; margin-bottom: 1.5rem; }
-        .card-button {
-            display: inline-block; background-color: var(--main-blue); color: var(--white); text-decoration: none;
-            padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; text-align: center;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-        .card-button:hover { background-color: var(--dark-blue); transform: scale(1.03); }
+        .card-button { display: inline-block; background-color: var(--main-blue); color: var(--white); text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; text-align: center; transition: background-color 0.3s ease, transform 0.3s ease; }
+        .card-button:hover { background-color: var(--dark-blue); }
 
         /* --- FOOTER --- */
         .main-footer { background-color: var(--main-blue); color: rgba(255, 255, 255, 0.8); padding: 2rem 1.5rem; text-align: center; font-size: 0.9rem; }
@@ -198,25 +141,43 @@
         <h1 data-lang-key="heroTitle">Biblioteca Digital</h1>
     </section>
     
-    <section class="welcome-section">
-        <div class="welcome-container">
-            <div class="welcome-block">
-                <div class="welcome-text">
+    <section id="welcome" class="content-section">
+        <div class="container">
+             <div class="grid-layout">
+                <div class="text-content">
                     <h2 data-lang-key="welcomeTitle">Bienvenido a la Biblioteca Blackwell</h2>
                     <p data-lang-key="welcomeText">Blackwell Global University cuenta con bibliotecas virtuales que permiten a sus estudiantes profundizar en las diferentes materias que conforman sus programas de estudios.</p>
-                     <div class="mission-vision">
+                </div>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/l2EPCD8sWSQ?si=4WgacdJNUDPYGTID" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mission-vision" class="content-section">
+        <div class="container">
+            <div class="grid-layout reversed">
+                <div class="image-content">
+                    <img src="https://static.vecteezy.com/system/resources/previews/020/809/067/non_2x/asian-university-students-read-books-and-study-together-in-the-library-free-photo.jpg" alt="Estudiantes de Blackwell University investigando en la biblioteca">
+                </div>
+                <div class="text-content mission-vision-text">
+                    <div>
                         <h3 data-lang-key="missionTitle">Nuestra Misión</h3>
                         <p data-lang-key="missionText">Empoderar a nuestra comunidad académica global con acceso ilimitado a información de alta calidad, fomentando la investigación rigurosa, la indagación crítica y la excelencia académica en todos los niveles de estudio.</p>
+                    </div>
+                    <div>
                         <h3 data-lang-key="visionTitle">Nuestra Visión</h3>
                         <p data-lang-key="visionText">Ser el pilar digital que impulse a la próxima generación de líderes, innovadores y profesionales cosmopolitas formados en Blackwell, facilitando la creación de conocimiento que genere un impacto positivo y duradero en el mundo.</p>
                     </div>
                 </div>
-                <div class="welcome-image">
-                    <img src="https://cdn.bitrix24.es/b15495391/landing/3eb/3eb8f44374f74313670eef4734526749/1_1x.webp" alt="Estudiante de Blackwell University estudiando en línea">
-                </div>
             </div>
+        </div>
+    </section>
 
-            <h2 class="partners-title" data-lang-key="partnersTitle">Recursos y Convenios Principales</h2>
+    <section class="content-section partners-section">
+        <div class="container">
+             <h2 class="partners-title" data-lang-key="partnersTitle">Recursos y Convenios Principales</h2>
             <div class="partner-cards-grid">
                 <a href="https://www.lirn.net/" target="_blank" rel="noopener noreferrer" class="partner-card">
                     <img src="https://cdn.bitrix24.es/b15495391/landing/2f4/2f4b02191d9fcb69fb0a3073d9205a90/2_1x.webp" alt="LIRN Library">
@@ -247,7 +208,7 @@
                 <li><a class="tab-link" data-tab-target="#tools" data-lang-key="catTools">Herramientas de Investigación</a></li>
             </ul>
 
-            <!-- Contenido de las Pestañas -->
+            <!-- Contenido de las Pestañas (se llenará con JS) -->
             <div class="tab-content">
                 <div id="featured" class="tab-pane active"><div class="resources-grid"></div></div>
                 <div id="metasearchers" class="tab-pane"><div class="resources-grid"></div></div>
@@ -371,13 +332,13 @@
             const createResourceItemHTML = (id, resource) => {
                 return `
                     <article class="resource-card">
-                        <span class="access-tag ${resource.access}" data-lang-key="tag${resource.access.charAt(0).toUpperCase() + resource.access.slice(1)}">${resource.access}</span>
+                        <span class="access-tag ${resource.access}" data-lang-key="tag${resource.access.charAt(0).toUpperCase() + resource.access.slice(1)}"></span>
                         <header class="card-header">
                             <div class="card-icon">${resource.icon}</div>
-                            <h3 class="card-title" data-lang-key="${id}">${id}</h3>
+                            <h3 class="card-title" data-lang-key="${id}"></h3>
                         </header>
-                        <p class="card-description" data-lang-key="desc_${id.replace(/-/g, '_')}">Description</p>
-                        <a href="${resource.url}" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess">Access</a>
+                        <p class="card-description" data-lang-key="desc_${id.replace(/-/g, '_')}"></p>
+                        <a href="${resource.url}" target="_blank" rel="noopener noreferrer" class="card-button" data-lang-key="btnAccess"></a>
                     </article>
                 `;
             };
